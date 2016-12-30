@@ -1,0 +1,83 @@
+<h1>Structural Directives Hack (Displaying data)</h1>
+    <hr>
+    <div *ngIf="hero">{{hero}}</div>
+    <template [ngIf]="hero">
+    <div>
+    Conditional textaa
+    </div> 
+    </template>    
+    <hr>
+    <div *ngFor="let hero of heroes; let i = index; let isOdd = odd;">
+    {{i+1 + ". "}}{{hero?.name}} {{hero?.groupname}}{{"is odd: "+isOdd}}
+    </div>
+    <hr>
+    <p>moving through a complex object</p>
+    <div *ngFor="let col of newsobj.schema">
+    My name is {{col.name}} | {{col.title}} | {{col.type}}
+    </div>
+    <div *ngFor="let ref of newsobj.references">
+    My id is {{ref.coverageId}} 
+    </div>
+    <div *ngFor="let ref of newsobj.references">
+    My cv is {{ref.recordJson.coverage_Name}} 
+    </div>
+    <hr>
+    <div *ngFor="let hero of heroes">
+    My name is {{hero.name}} 
+    </div>
+    <hr>
+    <div [ngSwitch]="status">
+    <template [ngSwitchCase]="'in-mission'">In Mission</template>
+    <template [ngSwitchCase]="'in-mission'">In Mission</template>
+    <template [ngSwitchCase]="'ready'">Ready</template>
+    <template ngSwitchDefault>Unknown</template>
+    <template ngSwitchDefault>Unknown</template>
+    </div>
+    <hr>
+    <button (click)="onClick()">Toggle</button>
+    <br>
+    <hr>
+    <p>testing multiple directives </p>
+       <template ngFor [ngForOf]="heroes" let-item>
+      <div *ngIf="item.name === 'jack' ">
+        {{item.name | uppercase}} is {{item.age}} old
+      </div>
+    </template>
+    <hr>
+    <p>testing pipes & parametirizing pipes</p>
+    <p>The hero's birthday is {{ birthday | date:format }}</p>
+    <button (click)="toggleFormat()">Toggle Format</button>
+    <hr>
+    <p>testing custom pipes</p>
+    <p>{{num1 | AddNum:5}}</p>
+    <br>
+    <hr>
+    <br>
+
+
+    <table>
+        <tr>
+            <th *ngFor="let col of newsobj.schema" >{{col.title}}</th>
+        </tr>
+        <tr *ngFor="let ref of newsobj.references">
+            <td>{{ref.recordJson.coverage_Name}}</td>
+            <td>{{ref.recordJson.coverage_Lob}} </td>
+        </tr>
+        
+    </table>
+
+    <ul>
+      <li *ngFor="let item of newsobj.schema">
+            <code> <span *ngFor="let v of generateArray(item)"> {{v}} </span> </code>
+      </li>
+    </ul>
+
+    <hr>
+    <br>
+
+    <input #newHero>
+    <input #newage>
+
+    <button (click)=addHero(newHero.value,newage.value)>Add</button>
+
+    <ul><li *ngFor="let hero of heroes">{{hero.name}}</li></ul>
